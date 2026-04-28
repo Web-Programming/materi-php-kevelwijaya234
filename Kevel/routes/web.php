@@ -60,6 +60,38 @@ Route::delete('/hapus{id}', function($id){
 });
 
 //Route untuk menampilkan halaman test_method
+//Route untuk menampilkan halaman test_method
 Route::get('/test-method', function(){
     return view('test_method');
+});
+
+//gek aku cek lagi
+Route::get('/detailproduk/{name}', function($name){
+    return view('produk.detail',
+        ['product_name' => $name,
+        'id'=> 101,
+        'color' => 'silver',
+        'stock' => 12
+        ]
+    );
+});
+
+Route::get('/produk/', function(){
+    return view('produk.index');
+});
+
+Route::get('/produk/create', function(){
+    return view('produk.create');
+});
+
+Route::get('/produk/search', function(){
+    return view('produk.search');
+});
+
+Route::get('/produk/detail', function(){
+    return view('produk.detail');
+});
+
+Route::get('/supplier/', function(){
+    return view('supplier.index');
 });
