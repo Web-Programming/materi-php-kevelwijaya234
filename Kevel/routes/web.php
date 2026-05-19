@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 
 //Route ke halaman utama (home)
 Route::get('/', function () {
@@ -110,16 +112,17 @@ Route::get('/profil', function(){
 //     return view('produk.detail');
 // });
 
-use App\Http\Controllers\ProductController;
-//php artisan make:controller ProductController --resource
-Route::resource('/produk', ProductController::class);
-Route::get('/produk/search', ProductController::class.'@search');
 
+//php artisan make:controller ProductController --resource
+// Rute pencarian harus dideklarasikan SEBELUM resource agar tidak tertangkap sebagai {id}
+Route::get('/produk/search', [ProductController::class, 'search'])->name('produk.search');
+Route::resource('/produk', ProductController::class);
 //Suplier
 // Route::get('/supplier/', function(){
 //     return view('supplier.index');
 // });
 
 //php artisan make:controller SupplierController --resource
-use App\Http\Controllers\SupplierController;
+
+Route::get('/supplier/search', [SupplierController::class, 'search']);
 Route::resource('/supplier', SupplierController::class);

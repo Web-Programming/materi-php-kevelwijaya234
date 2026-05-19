@@ -26,12 +26,13 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('produk.store') }}" method="POST">
+    <form action="{{ route('produk.update', $product->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="mb-3">
             <label for="name" class="form-label">Nama Produk</label>
             <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror"
-                value="{{ old('name') }}">
+                value="{{ old('name', $product->name) }}">
             @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -39,7 +40,7 @@
         <div class="mb-3">
             <label for="price" class="form-label">Harga</label>
             <input type="number" name="price" id="price" step="0.01"
-                class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
+                class="form-control @error('price') is-invalid @enderror" value="{{ old('price', $product->price) }}">
             @error('price')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -47,7 +48,7 @@
         <div class="mb-3">
             <label for="description" class="form-label">Deskripsi</label>
             <textarea name="description" id="description" rows="3"
-                class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                class="form-control @error('description') is-invalid @enderror">{{ old('description', $product->description) }}</textarea>
             @error('description')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -56,8 +57,9 @@
             <label for="status" class="form-label">Status</label>
             <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
                 <option value="">Pilih Status</option>
-                <option value="new" {{ old('status') === 'new' ? 'selected' : '' }}>Baru</option>
-                <option value="used" {{ old('status') === 'used' ? 'selected' : '' }}>Bekas</option>
+                <option value="new" {{ old('status', $product->status) === 'new' ? 'selected' : '' }}>Baru</option>
+                <option value="used" {{ old('status', $product->status) === 'used' ? 'selected' : '' }}>Bekas
+                </option>
             </select>
             @error('status')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -66,19 +68,18 @@
         <div class="mb-3">
             <label for="release_date" class="form-label">Tanggal Rilis</label>
             <input type="date" name="release_date" id="release_date"
-                class="form-control @error('release_date') is-invalid @enderror" value="{{ old('release_date') }}">
+                class="form-control @error('release_date') is-invalid @enderror"
+                value="{{ old('release_date', $product->release_date) }}">
             @error('release_date')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
         <div class="mb-3 form-check">
             <input type="checkbox" name="is_active" id="is_active" value="1" class="form-check-input"
-                {{ old('is_active') ? 'checked' : '' }}>
+                {{ old('is_active', $product->is_active) ? 'checked' : '' }}>
             <label for="is_active" class="form-check-label">Aktif</label>
         </div>
-
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('produk.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>

@@ -52,7 +52,7 @@ class SupplierController extends Controller
 
         return view('supplier.index',[
             'title' => 'Daftar Supplier',
-            'suppliers' => Supplier::all()
+            'suppliers' => Supplier::paginate(10)
         ]);
     }
 
@@ -129,5 +129,25 @@ class SupplierController extends Controller
         $supplier->delete();
 
         return redirect('/supplier')->with('success', 'Supplier berhasil dihapus!');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+        
+        if ($query) {
+            $suppliers = Supplier::where('name', 'like', "%{$query}%")
+                               ->orWhere('phone', 'like', "%{$query}%")
+                               ->orWhere('address', 'like', "%{$query}%")
+                               ->paginate(10)->appends(['q' => $query]);
+        } else {
+            $suppliers = collect(); // return empty collection if no search
+        }
+
+        return view('supplier.search', [
+            'title' => 'Cari Supplier',
+            'suppliers' => $suppliers,
+            'query' => $query
+        ]);
     }
 }

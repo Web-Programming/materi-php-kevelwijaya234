@@ -34,7 +34,7 @@
             <tbody>
                 @foreach ($suppliers as $index => $supplier)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $suppliers->firstItem() + $index }}</td>
                         <td>{{ $supplier->name }}</td>
                         <td>{{ $supplier->phone }}</td>
                         <td>{{ $supplier->address }}</td>
@@ -52,6 +52,10 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        {{ $suppliers->links() }}
     </div>
 </div>
 @endsection
