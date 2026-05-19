@@ -12,11 +12,47 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::paginate(5);
+        // $suppliers = [
+        //     [
+        //         'id' => 1,
+        //         'name' => 'PT Sumber Makmur',
+        //         'phone' => '021-12345678',
+        //         'address' => 'Jl. Sudirman No. 123, Jakarta Pusat'
+        //     ],
+        //     [
+        //         'id' => 2,
+        //         'name' => 'CV Mitra Jaya',
+        //         'phone' => '022-87654321',
+        //         'address' => 'Jl. Raya Bandung No. 45, Bandung'
+        //     ],
+        //     [
+        //         'id' => 3,
+        //         'name' => 'UD Sejahtera Bersama',
+        //         'phone' => '031-11223344',
+        //         'address' => 'Jl. Pemuda No. 67, Surabaya'
+        //     ],
+        //     [
+        //         'id' => 4,
+        //         'name' => 'PT Global Supplier',
+        //         'phone' => '024-99887766',
+        //         'address' => 'Jl. Pandanaran No. 89, Semarang'
+        //     ],
+        //     [
+        //         'id' => 5,
+        //         'name' => 'CV Cahaya Abadi',
+        //         'phone' => '0274-556677',
+        //         'address' => 'Jl. Malioboro No. 12, Yogyakarta'
+        //     ]
+        // ];
 
-        return view('supplier.index', [
+        // return view('supplier.index', [
+        //     'title' => 'Daftar Supplier',
+        //     'suppliers' => $suppliers
+        // ]);
+
+        return view('supplier.index',[
             'title' => 'Daftar Supplier',
-            'suppliers' => $suppliers
+            'suppliers' => Supplier::all()
         ]);
     }
 
@@ -25,7 +61,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('supplier.create',[ 'title' => 'Tambah Supplier']);
     }
 
     /**
@@ -33,7 +69,15 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'phone' => 'nullable|max:20',
+            'address' => 'nullable'
+        ]);
+
+        Supplier::create($validatedData);
+
+        return redirect('/supplier')->with('success', 'Supplier berhasil ditambahkan!');
     }
 
     /**
@@ -41,12 +85,9 @@ class SupplierController extends Controller
      */
     public function show(string $id)
     {
-        $supplier = Supplier::findOrFail($id);
-
         return view('supplier.detail', [
-            'id' => $id,
             'title' => 'Detail Supplier',
-            'supplier' => $supplier
+            'supplier' => Supplier::findOrFail($id)
         ]);
     }
 
@@ -56,6 +97,10 @@ class SupplierController extends Controller
     public function edit(string $id)
     {
         //
+        return view('supplier.edit', [
+            'title' => 'Edit Supplier',
+            'supplier' => Supplier::find($id)
+        ]);
     }
 
     /**
@@ -63,7 +108,16 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'phone' => 'nullable|max:20',
+            'address' => 'nullable'
+        ]);
+
+        $supplier = Supplier::findOrFail($id);
+        $supplier->update($validatedData);
+
+        return redirect('/supplier')->with('success', 'Supplier berhasil diperbarui!');
     }
 
     /**
@@ -71,6 +125,9 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        $supplier->delete();
+
+        return redirect('/supplier')->with('success', 'Supplier berhasil dihapus!');
     }
 }

@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 //Route ke halaman utama (home)
 Route::get('/', function () {
-    echo "Hallo, Nama Saya Pak JR";
-    //return view('welcome');
+    return view('landing');
+});
+
+Route::post('/login', function (\Illuminate\Http\Request $request) {
+    $username = $request->input('username');
+    return view('landing', ['username' => $username]);
 });
 //Route ke halaman alamat
 Route::get('/alamat', function(){
