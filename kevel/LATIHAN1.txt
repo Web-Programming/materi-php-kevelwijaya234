@@ -1,0 +1,11 @@
+1. Buat model, migration dan seeder untuk data Supplier
+dengan struktur tabel :
+id, name (varchar(150)), phone (varchar (15)), address (text, nullable)
+2. Buat seeder untuk menambah data Supplier dummy
+3. Tampilkan data list supplier pada view supplier.index, gunakan model Supplier untuk
+memanggil data list supplier dari tabel.
+
+Lanjutan :
+1. Buat form tambah dan edit produk pada masing-masing view
+2. Gunakan ProdukController untuk menghandle post request
+3. Gunakan model Produk untuk menyimpan data produk dan mengupdate data produk
