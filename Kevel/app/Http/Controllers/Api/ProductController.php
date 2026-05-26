@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens; // ← tambahkan ini
 
-class User extends Authenticatable{
-    use HasApiTokens, Notifiable; // ← tambahkan HasApiTokens
+class AuthApiController extends Controller
+{
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logout berhasil'
+        ]);
+    }
 }
 
 class ProductController extends Controller
