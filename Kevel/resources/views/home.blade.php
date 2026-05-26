@@ -10,6 +10,7 @@
 </head>
 
 <body class="bg-light">
+
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/"><i class="bi bi-shop me-2"></i>Aplikasi Penjualan</a>
@@ -23,6 +24,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
@@ -48,6 +50,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row mt-5 g-4">
             <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm text-center p-4">
@@ -72,9 +75,11 @@
             </div>
         </div>
     </div>
+
     <footer class="text-center text-muted mt-5 py-4 border-top">
-        &copy; {{ date('Y') }} Aplikasi Penjualan. All rights reserved.
+        © {{ date('Y') }} Aplikasi Penjualan. All rights reserved.
     </footer>
+
 </body>
 
 </html>

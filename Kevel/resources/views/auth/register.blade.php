@@ -17,7 +17,7 @@
                         <h4 class="mb-0">{{ $title }}</h4>
                     </div>
                     <div class="card-body p-4">
-                        {{-- Tampilkan error validasi --}}
+
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -25,6 +25,7 @@
                                 @endforeach
                             </div>
                         @endif
+
                         <form action="{{ url('/register') }}" method="POST">
                             @csrf
                             <div class="mb-3">
@@ -62,6 +63,7 @@
                                 <button type="submit" class="btn btn-success">Daftar</button>
                             </div>
                         </form>
+
                     </div>
                     <div class="card-footer text-center text-muted">
                         Sudah punya akun? <a href="{{ url('/login') }}">Login di sini</a>

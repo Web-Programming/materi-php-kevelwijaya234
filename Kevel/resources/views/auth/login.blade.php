@@ -17,11 +17,11 @@
                         <h4 class="mb-0">{{ $title }}</h4>
                     </div>
                     <div class="card-body p-4">
-                        {{-- Tampilkan pesan sukses (setelah register) --}}
+
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
-                        {{-- Tampilkan error validasi --}}
+
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -29,6 +29,7 @@
                                 @endforeach
                             </div>
                         @endif
+
                         <form action="{{ url('/login') }}" method="POST">
                             @csrf
                             <div class="mb-3">
@@ -56,6 +57,7 @@
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                         </form>
+
                     </div>
                     <div class="card-footer text-center text-muted">
                         Belum punya akun? <a href="{{ url('/register') }}">Daftar di sini</a>
